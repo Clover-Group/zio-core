@@ -8,7 +8,7 @@ resolvers += Resolver.sonatypeRepo("snapshots")
 lazy val root = (project in file("."))
   .settings(
     organization := "ZIO",
-    name := "zio-cats-project",
+    name := "zio-core",
     version := "0.0.1",
     scalaVersion := "2.12.8",
     maxErrors := 3,
