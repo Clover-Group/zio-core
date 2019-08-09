@@ -1,59 +1,36 @@
-val ZioVersion      = "1.0-RC5"
-val CatsVersion     = "2.0.0-M1"
-val CatsEffVersion  = "2.0.0-M3"
+val ZioVersion      = "1.0.0-RC11-1"
+val ZioCatsVersion  = "2.0.0.0-RC2"
+val CatsVersion     = "2.0.0-RC1"
+val LogbackVersion  = "1.2.3"
+val ScalaLogVersion = "3.9.2"
+val Specs2Version   = "4.7.0"
+val ParadiseVersion = "2.1.1"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
 
 lazy val root = (project in file("."))
   .settings(
-    organization := "ZIO",
+    organization := "CloverGroup",
     name := "zio-core",
     version := "0.0.1",
     scalaVersion := "2.12.8",
     maxErrors := 3,
     libraryDependencies ++= Seq(
-      "org.scalaz"    %% "scalaz-zio"   % ZioVersion, 
-      "org.typelevel" %% "cats-core"    % CatsVersion,
-      //"org.typelevel" %% "cats-effect"  % CatsEffVersion,
+      "org.specs2"                 %% "specs2-core"      % Specs2Version % Test,
+      "dev.zio"                    %% "zio"              % ZioVersion,
+      "dev.zio"                    %% "zio-interop-cats" % ZioCatsVersion,
+      "org.typelevel"              %% "cats-core"        % CatsVersion,
+      "ch.qos.logback"             % "logback-classic"   % LogbackVersion,
+      "com.typesafe.scala-logging" %% "scala-logging"    % ScalaLogVersion
     )
   )
 
-scalacOptions := Seq(
-  "-Xsource:2.13",
-  "-Xlint",
-  "-Xverify",
-  "-feature",
-  "-deprecation",
-  "-explaintypes",
-  "-unchecked",
-  "-Xfuture",
-  "-encoding",
-  "UTF-8",
-  "-Yrangepos",
-  "-Xlint:_,-type-parameter-shadow",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-unused",
-  "-Ywarn-value-discard",
-  "-language:higherKinds",
-  "-language:existentials",
-  "-Yno-adapted-args",
-  "-Ypartial-unification",
-  //"-Xfatal-warnings",
-  "-Xlint:-infer-any,_",
-  "-Ywarn-value-discard",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-extra-implicit",
-  "-Ywarn-unused:_",
-  "-Ywarn-inaccessible",
-  "-Ywarn-nullary-override",
-  "-Ywarn-nullary-unit",
-  "-opt-inline-from:<source>",
-  "-opt-warnings",
-  "-opt:l:inline"
+scalacOptions --= Seq(
+  "-Xfatal-warnings"
 )
 
-addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.1" cross CrossVersion.full)
+addCompilerPlugin("org.scalamacros" % "paradise" % ParadiseVersion cross CrossVersion.full)
 
 addCommandAlias("fmt", "all scalafmtSbt scalafmt test:scalafmt")
 addCommandAlias("chk", "all scalafmtSbtCheck scalafmtCheck test:scalafmtCheck")
