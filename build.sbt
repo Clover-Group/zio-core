@@ -3,8 +3,9 @@ val ZioCatsVersion       = "2.0.0.0-RC2"
 val CatsVersion          = "2.0.0-RC1"
 val LogbackVersion       = "1.2.3"
 val ScalaLogVersion      = "3.9.2"
-val Specs2Version        = "4.7.0"
 val ConfigFactoryVersion = "1.3.4"
+val ScalaTestVersion     = "3.0.8"
+val ScalaCheckVersion    = "1.14.0"
 
 resolvers += Resolver.sonatypeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
@@ -17,7 +18,9 @@ lazy val root = (project in file("."))
     scalaVersion := "2.12.8",
     maxErrors := 3,
     libraryDependencies ++= Seq(
-      "org.specs2"                 %% "specs2-core"      % Specs2Version % Test,
+      "org.scalactic"              %% "scalactic"        % ScalaTestVersion,
+      "org.scalatest"              %% "scalatest"        % ScalaTestVersion % "test",
+      "org.scalacheck"             %% "scalacheck"       % ScalaCheckVersion % "test",
       "dev.zio"                    %% "zio"              % ZioVersion,
       "dev.zio"                    %% "zio-interop-cats" % ZioCatsVersion,
       "org.typelevel"              %% "cats-core"        % CatsVersion,
